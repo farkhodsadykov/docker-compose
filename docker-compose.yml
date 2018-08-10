@@ -1,0 +1,19 @@
+---
+version: "3.5"
+
+volumes:
+  Shared4:
+
+services:
+  Web4:
+    image: "fsadykov/dc-tester"
+    container_name: flask_api
+    volumes:
+      - Shared4:/Shared4
+    ports:
+     - "3333:5000"
+  Web5:
+    image: "fsadykov/dc-tester"
+    container_name: Product
+    ports:
+     - "3332:5000"
