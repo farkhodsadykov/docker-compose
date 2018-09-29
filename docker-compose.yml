@@ -13,6 +13,8 @@ services:
       - "8.8.4.4"
     ports:
       - "8080:80/tcp"
+    depends_on:
+      - "lb"
 
   apache2:
     image: "httpd:latest"
@@ -23,9 +25,11 @@ services:
     ports:
       - "8090:80/tcp"
       - "8091:81/tcp"
+    depends_on:
+      - "lb"
 
-  load_balancer:
+  lb:
     image: "nginx:latest"
     ports:
-      - "8081:80u/tcp"
+      - "8081:80/tcp"
     container_name: "lb"
