@@ -1,6 +1,7 @@
 version: "3"
 volumes:
   share:
+  share2:
 
 services:
   apache:
@@ -8,6 +9,7 @@ services:
     container_name: "webserver"
     volumes:
       - share:/share
+      - share2:/share2
     dns:
       - "8.8.8.8"
       - "8.8.4.4"
