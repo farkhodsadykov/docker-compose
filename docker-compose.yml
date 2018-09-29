@@ -1,19 +1,31 @@
----
-version: "3.5"
-
+version: "3"
 volumes:
-  Shared4:
+  share:
 
 services:
-  Web4:
-    image: "fsadykov/dc-tester"
-    container_name: flask_api
+  apache:
+    image: "httpd:latest"
+    container_name: "webserver"
     volumes:
-      - Shared4:/Shared4
+      - share:/share
+    dns:
+      - "8.8.8.8"
+      - "8.8.4.4"
     ports:
-     - "3333:5000"
-  Web5:
-    image: "fsadykov/dc-tester"
-    container_name: Product
+      - "8080:80/tcp"
+
+  apache2:
+    image: "httpd:latest"
+    container_name: "webserver2"
+    dns:
+      - "8.8.8.8"
+      - "8.8.4.4"
     ports:
-     - "3332:5000"
+      - "8090:80/tcp"
+      - "8091:81/tcp"
+
+  load_balancer:
+    image: "nginx:latest"
+    ports:
+      - "8081:80u/tcp"
+    container_name: "lb"
